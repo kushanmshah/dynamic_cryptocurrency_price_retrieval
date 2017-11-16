@@ -32,5 +32,26 @@ def currency():
         client = Client(account_sid, auth_token)
         message = client.messages.create(to="+918347824246", from_="+12244791958", body=sendstr)
         print(message.sid)
+		
+def currency_old():
+    threading.Timer(300.0, currency_old).start()
+    account_sid = "ACdc897247e82666fee0953f763b5a7060"
+    auth_token  = "d6e4fd8848fe45f3784b4ba35a11c5f6"
+
+    ethurl = "https://etherchain.org/api/statistics/price"
+    urlget = requests.get(ethurl)
+    urltext = urlget.text
+    ethexbs = bs(urltext,"html.parser")
+
+    sendstr=ethexbs.text
+    #print(sendstr)
+    redtext = "{,},\",:"
+    for char in redtext:
+        sendstr=sendstr.replace(char," ").strip()
+    sendstrspl=sendstr.split("  ")
+    sendstr=' '.join(sendstrspl)
+    sendst1r=sendstr[16:]
+    print(sendst1r)
 
 currency()
+currency_old()
